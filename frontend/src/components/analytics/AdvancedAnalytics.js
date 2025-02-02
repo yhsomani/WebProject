@@ -45,7 +45,7 @@ import {
   PieChart,
   Pie,
   Cell
-} from 'recharts';
+} from "recharts";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8"];
 
@@ -192,7 +192,7 @@ const CareerPathCard = ({ pathway }) => (
         <Typography variant="body2" gutterBottom>
           Required Skills:
         </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
           {pathway.skills.map((skill, index) => (
             <Chip
               key={index}
@@ -285,7 +285,7 @@ const AdvancedAnalytics = () => {
           </Grid>
 
           <Grid item xs={12} md={8}>
-            <Card sx={{ height: '100%' }}>
+            <Card sx={{ height: "100%" }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
                   Weekly Activity
@@ -306,7 +306,7 @@ const AdvancedAnalytics = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Card sx={{ height: '100%' }}>
+            <Card sx={{ height: "100%" }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
                   Skill Distribution

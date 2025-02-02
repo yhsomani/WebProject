@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Container,
@@ -29,12 +29,12 @@ const FeatureCard = ({ title, description, icon: Icon, path, image }) => {
   return (
     <Card
       sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'transform 0.2s',
-        '&:hover': {
-          transform: 'translateY(-4px)',
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        transition: "transform 0.2s",
+        "&:hover": {
+          transform: "translateY(-4px)",
           boxShadow: theme.shadows[8]
         }
       }}
@@ -45,7 +45,7 @@ const FeatureCard = ({ title, description, icon: Icon, path, image }) => {
           height="140"
           image={image}
           alt={title}
-          sx={{ objectFit: 'cover' }}
+          sx={{ objectFit: "cover" }}
         />
         <CardContent>
           <Box display="flex" alignItems="center" mb={2}>
@@ -112,30 +112,30 @@ const HomePage = () => {
   ];
 
   return (
-    <Box sx={{ minHeight: '100vh', pb: 6 }}>
+    <Box sx={{ minHeight: "100vh", pb: 6 }}>
       {/* Hero Section */}
       <Paper
         elevation={0}
         sx={{
-          position: 'relative',
-          backgroundColor: 'grey.800',
-          color: '#fff',
+          position: "relative",
+          backgroundColor: "grey.800",
+          color: "#fff",
           mb: 4,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          backgroundImage: 'url(/images/hero-bg.jpg)',
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundImage: "url(/images/hero-bg.jpg)",
           py: 8
         }}
       >
         <Box
           sx={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             bottom: 0,
             right: 0,
             left: 0,
-            backgroundColor: 'rgba(0,0,0,.5)',
+            backgroundColor: "rgba(0,0,0,.5)",
           }}
         />
         <Container maxWidth="lg">
@@ -143,7 +143,7 @@ const HomePage = () => {
             <Grid item md={8} xs={12}>
               <Box
                 sx={{
-                  position: 'relative',
+                  position: "relative",
                   p: { xs: 3, md: 6 },
                 }}
               >
@@ -157,7 +157,7 @@ const HomePage = () => {
                   variant="contained"
                   size="large"
                   sx={{ mt: 2 }}
-                  onClick={() => navigate('/learning-paths')}
+                  onClick={() => navigate("/learning-paths")}
                 >
                   Start Learning
                 </Button>
