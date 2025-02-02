@@ -1,0 +1,52 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "learning_platform",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres",
+    "define": {
+      "timestamps": true,
+      "underscored": true,
+      "freezeTableName": true
+    },
+    "pool": {
+      "max": 10,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
+    },
+    "timezone": "+05:30"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "learning_platform_test",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres",
+    "logging": false
+  },
+  "production": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "learning_platform",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "logging": false,
+    "pool": {
+      "max": 50,
+      "min": 10,
+      "acquire": 60000,
+      "idle": 20000
+    }
+  }
+}

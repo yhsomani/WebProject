@@ -1,0 +1,103 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ${NODE_ENV:-development}.dockerfile
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - REACT_APP_API_URL=http://localhost:4000
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - FAST_REFRESH=false
+      - CI=false
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - PORT=${PORT:-4000}
+      - MONGODB_URI=mongodb://mongodb:27017/learning_platform
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=learning_platform
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secure_password_123
+      - JWT_SECRET=${JWT_SECRET:-default_jwt_secret_key_change_in_production}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-7d}
+      - CORS_ORIGIN=http://localhost:${FRONTEND_PORT:-3000}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
+      - ENABLE_EMAIL_VERIFICATION=${ENABLE_EMAIL_VERIFICATION:-false}
+      - ENABLE_TWO_FACTOR_AUTH=${ENABLE_TWO_FACTOR_AUTH:-false}
+      - ENABLE_FIREBASE=${ENABLE_FIREBASE:-false}
+      - ENABLE_AWS_S3=${ENABLE_AWS_S3:-false}
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ./backend/certificates:/app/certificates
+      - ./backend/models:/app/models/ml_models
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017 --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=learning_platform
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secure_password_123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d learning_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  mongodb_data:
+  postgres_data:
+  redis_data:
